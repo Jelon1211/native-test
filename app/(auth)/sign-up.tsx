@@ -1,30 +1,38 @@
 import { useState } from "react";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
+import { View, Text, ScrollView, Image } from "react-native";
+import { API_URL } from "@env";
 
-import { images } from "../../constants";
+import { icons, images } from "../../constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import { SignUpFormState } from "@/types/formfield";
+import LoginService from "@/services/loginService";
 
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const [form, setForm] = useState<SignUpFormState>({
-    username: "",
+    name: "",
     email: "",
     password: "",
+    isActive: true,
   });
+  const [responseMessage, setResponseMessage] = useState<string>();
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const submit = async () => {
     setSubmitting(true);
-
-    setTimeout(() => {
-      console.log(form.username);
-      console.log(form.email);
-      console.log(form.password);
+    setResponseMessage("");
+    try {
+      const { data, status } = await LoginService.createUser(form);
+      setResponseMessage(data.message);
+      setIsSuccess(status === 201);
+    } catch (error) {
+      throw error;
+    } finally {
       setSubmitting(false);
-    }, 1200);
+    }
   };
 
   return (
@@ -42,9 +50,9 @@ const SignUp = () => {
           </Text>
 
           <FormField
-            title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
+            title="Name"
+            value={form.name}
+            handleChangeText={(e) => setForm({ ...form, name: e })}
             otherStyles="mt-10"
           />
 
@@ -80,6 +88,24 @@ const SignUp = () => {
             >
               Login
             </Link>
+          </View>
+          <View className="flex justify-center items-center pt-5 flex-row gap-2">
+            {responseMessage && (
+              <>
+                <Text
+                  className={`text-lg ${
+                    isSuccess ? "text-green-500" : "text-red-500"
+                  } font-pregular`}
+                >
+                  {responseMessage}
+                </Text>
+                <Image
+                  source={isSuccess ? icons.checked : icons.cancel}
+                  className="mb-1 w-4 h-4"
+                  resizeMode="contain"
+                />
+              </>
+            )}
           </View>
         </View>
       </ScrollView>

@@ -1,17 +1,29 @@
-import axios, { AxiosResponse } from "axios";
-import { IGetUser, ICreateUser, ILoginUser } from "../types/loginservice";
+import {
+  IGetUser,
+  ICreateUser,
+  ILoginUser,
+  ICreateUserResponse,
+} from "../types/loginservice";
+import { API_URL } from "@env";
 
 export default class LoginService {
   static async loginAuth(userData: ILoginUser): Promise<IGetUser> {
     try {
-      const response: AxiosResponse<IGetUser> = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ADRESS}/auth`,
-        userData,
-        {
-          withCredentials: true,
-        }
-      );
-      return response.data;
+      const response = await fetch(`${API_URL}/auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data: IGetUser = await response.json();
+      return data;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message || "An unexpected error occurred.");
@@ -21,26 +33,18 @@ export default class LoginService {
     }
   }
 
-  // static async getUser(id: string): Promise<IGetUser> {
-  //   try {
-  //     const response: AxiosResponse<IGetUser> = await axios.get(
-  //       `${process.env.NEXT_PUBLIC_SERVER_ADRESS}/users/${id}`
-  //     );
-  //     return response.data;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
-  static async createUser(
-    userData: Partial<ICreateUser>
-  ): Promise<ICreateUser> {
+  static async createUser(userData: ICreateUser): Promise<ICreateUserResponse> {
     try {
-      const response: AxiosResponse<ICreateUser> = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ADRESS}/users`,
-        userData
-      );
-      return response.data;
+      const response = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data: ICreateUser = await response.json();
+      return { data, status: response.status };
     } catch (error) {
       throw error;
     }
@@ -48,13 +52,15 @@ export default class LoginService {
 
   static async logOut(): Promise<Response> {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_ADRESS}/auth/logout`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${API_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       return response;
     } catch (error) {
       throw error;

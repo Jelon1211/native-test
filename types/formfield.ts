@@ -12,7 +12,8 @@ export interface SignInFormState {
   password: string;
 }
 export interface SignUpFormState {
-  username: string;
+  name: string;
   email: string;
   password: string;
+  isActive: boolean;
 }

@@ -1,9 +1,12 @@
-import { ChangeEvent } from "react";
-
 export interface IGetUser {
   accessToken: string;
   id: string;
   email: string;
+}
+
+export interface ICreateUserResponse {
+  data: ICreateUser;
+  status: number;
 }
 
 export interface ICreateUser {
@@ -16,23 +19,4 @@ export interface ICreateUser {
 export interface ILoginUser {
   email: string;
   password: string;
-}
-
-export interface IInputField {
-  name: string;
-  type?: string;
-  value: string;
-  divClassName?: string;
-  inputClassName?: string;
-  labelClassName?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export interface IButton {
-  placeHolderValue: string;
-  isDisabled?: boolean;
-}
-
-export interface ErrorResponse {
-  message: string;
 }
