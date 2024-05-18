@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "native-test",
-    "slug": "native-test",
+    "name": "GeoQuest",
+    "slug": "GeoQuest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "native-test",
+    "scheme": "GeoQuest",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
