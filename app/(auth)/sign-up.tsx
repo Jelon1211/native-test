@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { API_URL } from "@env";
 
 import { icons, images } from "../../constants";
@@ -22,6 +22,9 @@ const SignUp = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const submit = async () => {
+    if (form.name === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
     setSubmitting(true);
     setResponseMessage("");
     try {
@@ -29,7 +32,7 @@ const SignUp = () => {
       setResponseMessage(data.message);
       setIsSuccess(status === 201);
     } catch (error) {
-      throw error;
+      setResponseMessage("Network error");
     } finally {
       setSubmitting(false);
     }

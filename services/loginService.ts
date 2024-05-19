@@ -3,11 +3,12 @@ import {
   ICreateUser,
   ILoginUser,
   ICreateUserResponse,
+  IGetUserResponse,
 } from "../types/loginservice";
 import { API_URL } from "@env";
 
 export default class LoginService {
-  static async loginAuth(userData: ILoginUser): Promise<IGetUser> {
+  static async loginAuth(userData: ILoginUser): Promise<IGetUserResponse> {
     try {
       const response = await fetch(`${API_URL}/auth`, {
         method: "POST",
@@ -23,7 +24,7 @@ export default class LoginService {
       }
 
       const data: IGetUser = await response.json();
-      return data;
+      return { data, status: response.status };
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message || "An unexpected error occurred.");
@@ -34,6 +35,7 @@ export default class LoginService {
   }
 
   static async createUser(userData: ICreateUser): Promise<ICreateUserResponse> {
+    console.log(API_URL);
     try {
       const response = await fetch(`${API_URL}/users`, {
         method: "POST",

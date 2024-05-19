@@ -1,11 +1,14 @@
 export interface IGetUser {
   accessToken: string;
-  id: string;
-  email: string;
 }
 
 export interface ICreateUserResponse {
   data: ICreateUser;
+  status: number;
+}
+
+export interface IGetUserResponse {
+  data: IGetUser;
   status: number;
 }
 
