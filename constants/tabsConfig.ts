@@ -7,14 +7,9 @@ const tabsConfig = [
     icon: icons.home,
   },
   {
-    name: "bookmark",
-    title: "Bookmark",
-    icon: icons.bookmark,
-  },
-  {
-    name: "create",
-    title: "Create",
-    icon: icons.plus,
+    name: "play",
+    title: "Play",
+    icon: icons.play,
   },
   {
     name: "profile",

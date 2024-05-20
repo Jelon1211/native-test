@@ -35,7 +35,6 @@ export default class LoginService {
   }
 
   static async createUser(userData: ICreateUser): Promise<ICreateUserResponse> {
-    console.log(API_URL);
     try {
       const response = await fetch(`${API_URL}/users`, {
         method: "POST",
