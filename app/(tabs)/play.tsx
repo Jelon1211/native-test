@@ -1,68 +1,35 @@
 import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
-import * as Location from "expo-location";
-import CustomButton from "@/components/CustomButton";
+import React, { useCallback } from "react";
+import useLocation from "@/hooks/useLocation"; // Upewnij się, że ścieżka jest poprawna
+import { useFocusEffect } from "@react-navigation/native";
+import PermissionMessage from "@/components/PermissionMessage";
 
 const Play = () => {
-  const [currentLocation, setCurrentLocation] = useState<any>();
-  const [permissionDenied, setPermissionDenied] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const {
+    permissionDenied,
+    errorMessage,
+    startLocationUpdates,
+    stopLocationUpdates,
+  } = useLocation();
 
-  useEffect(() => {
-    const getPermissions = async () => {
-      try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setPermissionDenied(true);
-          return;
-        } else {
-          setPermissionDenied(false);
-          const getLocation = async () => {
-            try {
-              let location = await Location.getCurrentPositionAsync({});
-              setCurrentLocation(location.coords);
-            } catch (error) {
-              setErrorMessage("Błąd podczas uzyskiwania lokalizacji");
-              console.error(error);
-            }
-          };
+  // To prevent actions when NOT on 'play' page
+  useFocusEffect(
+    useCallback(() => {
+      startLocationUpdates();
 
-          getLocation();
-          const intervalId = setInterval(() => {
-            getLocation();
-          }, 1000);
-
-          return () => clearInterval(intervalId);
-        }
-      } catch (error) {
-        setErrorMessage("Błąd podczas uzyskiwania uprawnień");
-        console.error(error);
-      }
-    };
-
-    getPermissions();
-  }, []);
+      return () => {
+        stopLocationUpdates();
+      };
+    }, [startLocationUpdates, stopLocationUpdates])
+  );
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <Text className="text-3xl font-pblack">Play</Text>
-      {currentLocation && (
-        <>
-          <Text className="text-3xl font-pblack">
-            {currentLocation.latitude}
-          </Text>
-          <Text className="text-3xl font-pblack">
-            {currentLocation.longitude}
-          </Text>
-        </>
-      )}
-      {permissionDenied && (
-        <Text>
-          Trzeba zezwolić na używanie GPS do poprawnego działania aplikacji.
-          Przejdź do ustawień systemowych i zezwól na dostęp do lokalizacji.
-        </Text>
-      )}
-      {errorMessage && <Text>{errorMessage}</Text>}
+      <PermissionMessage
+        permissionDenied={permissionDenied}
+        errorMessage={errorMessage}
+      />
     </View>
   );
 };
