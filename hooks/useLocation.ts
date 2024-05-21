@@ -46,7 +46,7 @@ const useLocation = () => {
       const id = setInterval(async () => {
         const location = await getLocation();
         console.log(location);
-      }, GPS_REFRESH_RATE);
+      }, 10000);
       intervalIdRef.current = id;
     }
   }, []);

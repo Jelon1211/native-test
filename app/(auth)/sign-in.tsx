@@ -9,6 +9,7 @@ import CustomButton from "@/components/CustomButton";
 import { SignInFormState } from "@/types/formfield";
 import LoginService from "@/services/loginService";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import { API_URL } from "@env";
 
 const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const SignIn = () => {
       Alert.alert("Error", "Please fill in all fields");
     }
     setSubmitting(true);
+
     try {
       const { data, status } = await LoginService.loginAuth(form);
       if (status === 200) {

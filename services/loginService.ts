@@ -10,14 +10,17 @@ import { API_URL } from "@env";
 export default class LoginService {
   static async loginAuth(userData: ILoginUser): Promise<IGetUserResponse> {
     try {
-      const response = await fetch(`${API_URL}/auth`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `https://9108-91-235-160-53.ngrok-free.app/auth`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
