@@ -8,4 +8,20 @@ export interface IRegion {
 export interface ICurrentLocation {
   latitude: number;
   longitude: number;
+  accuracy?: number;
+  altitude?: 0;
+  altitudeAccuracy?: 0;
+  heading?: 0;
+  speed?: 0;
+}
+
+export interface LocationMarkerProps {
+  latitude: number;
+  longitude: number;
+  title?: string;
+  description?: string;
+}
+
+export interface MapProps {
+  currentLocation: ICurrentLocation;
 }
