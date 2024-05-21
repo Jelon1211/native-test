@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { GPS_REFRESH_RATE } from "@env";
 import * as Location from "expo-location";
 
 const useLocation = () => {
@@ -18,7 +19,7 @@ const useLocation = () => {
         return true;
       }
     } catch (error) {
-      setErrorMessage("Błąd podczas uzyskiwania uprawnień");
+      setErrorMessage("Error GPS permissions");
       console.error(error);
       return false;
     }
@@ -31,7 +32,7 @@ const useLocation = () => {
       setErrorMessage(null);
       return location.coords;
     } catch (error) {
-      setErrorMessage("Błąd podczas uzyskiwania lokalizacji");
+      setErrorMessage("Error during setting gps");
       console.error(error);
       return null;
     }
@@ -44,8 +45,8 @@ const useLocation = () => {
     if (!intervalIdRef.current) {
       const id = setInterval(async () => {
         const location = await getLocation();
-        console.log(location); // Logujemy zwróconą lokalizację
-      }, 1000);
+        console.log(location);
+      }, GPS_REFRESH_RATE);
       intervalIdRef.current = id;
     }
   }, []);
