@@ -42,11 +42,15 @@ const useLocation = () => {
     const hasPermission = await getPermissions();
     if (!hasPermission) return;
 
+    const getLocationAndLog = async () => {
+      const location = await getLocation();
+      console.log(location);
+    };
+
     if (!intervalIdRef.current) {
-      const id = setInterval(async () => {
-        const location = await getLocation();
-        console.log(location);
-      }, 10000);
+      await getLocationAndLog();
+
+      const id = setInterval(getLocationAndLog, 10000);
       intervalIdRef.current = id;
     }
   }, []);
@@ -59,6 +63,8 @@ const useLocation = () => {
   }, []);
 
   useEffect(() => {
+    getLocation();
+
     return () => {
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
