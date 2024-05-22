@@ -13,6 +13,8 @@ import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 import checked from "../assets/icons/checked.png";
 import cancel from "../assets/icons/cancel.png";
+import seeMore from "../assets/icons/see-more.png";
+import map from "../assets/icons/map.png";
 
 export default {
   play,
@@ -30,4 +32,6 @@ export default {
   eye,
   checked,
   cancel,
+  seeMore,
+  map,
 };

@@ -1,10 +1,19 @@
-import { View, Modal, Text, TouchableOpacity, StatusBar } from "react-native";
+import {
+  View,
+  Modal,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+} from "react-native";
 import React, { useState } from "react";
 import MapView from "react-native-maps";
 import { ICurrentLocation, IRegion, MapProps } from "@/types/map";
 import LocationMarker from "./LocationMarker";
 import mockMarkers from "@/constants/mockMarkers";
 import CancelButton from "../CancelButton";
+import images from "@/constants/images";
+import icons from "@/constants/icons";
 
 const Map: React.FC<MapProps> = ({ currentLocation }) => {
   const [region, setRegion] = useState<IRegion | undefined>({
@@ -67,35 +76,45 @@ const Map: React.FC<MapProps> = ({ currentLocation }) => {
           onRequestClose={() => setModalVisible(false)}
         >
           <View className="flex-1 justify-center items-center bg-black/25">
-            <View className="w-10/12 p-12 rounded-lg items-center bg-white">
-              <Text>Znajdź żółtego psa lub diabła rogatego</Text>
-              <Text className="mt-4 text-center">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Aliquid, sint? Quis, quasi laborum repudiandae corporis iste
-                tenetur, obcaecati dicta explicabo eos minima, necessitatibus
-                harum. Quas et repudiandae temporibus veniam culpa assumenda
-                perferendis eligendi blanditiis autem enim error, nisi quasi
-                ipsa porro praesentium! Adipisci distinctio tempora dolores, sed
-                aspernatur quas, enim debitis veniam et nam placeat quasi quidem
-                rerum tempore. Aliquam, alias itaque, voluptatum beatae a
-                accusamus rerum nisi expedita molestias nam obcaecati
-                perferendis. Nam nostrum explicabo provident similique
-                distinctio inventore nihil molestias error ipsa! Praesentium
-                consequatur sit tempora nisi sed molestias mollitia repudiandae
-                nemo modi, itaque magni aspernatur repellendus blanditiis atque
-                ab? Quidem amet iusto, rem magnam excepturi voluptates corrupti
-                hic dolore illum incidunt beatae a quas aliquid quisquam! Qui.
+            <View className="w-10/12 p-3 rounded-lg bg-white">
+              <Text className="text-2xl font-bold text-center">
+                Znajdź żółtego psa lub diabła rogatego
               </Text>
-              <TouchableOpacity
-                className="mt-4 p-2 rounded"
-                onPress={() => setModalVisible(false)}
-              >
-                <CancelButton
-                  title="Cancel"
-                  containerStyles="absolute right-1/3"
-                  handlePress={() => setModalVisible(false)}
-                />
-              </TouchableOpacity>
+              <Image
+                source={images.thumbnail}
+                className="w-full"
+                resizeMode="contain"
+              />
+              <View className="flex-row items-end">
+                <Text className="mt-4 text-base">
+                  {/* 40 words max */}
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Dolore laudantium possimus cum pariatur, cumque fuga enim nam
+                  esse ipsum doloribus eligendi ducimus quisquam ab inventore
+                  dolores similique ratione. Laboriosam facere eligendi dolorum
+                  hic voluptate unde eveniet fugit odit tempore recusandae!
+                </Text>
+                <View className="gap-7 border-solid border-2">
+                  <Image
+                    source={icons.seeMore}
+                    className="w-6 h-6"
+                    tintColor="#FF9C01"
+                    resizeMode="contain"
+                  />
+                  <Image
+                    source={icons.map}
+                    className="w-8 h-8"
+                    tintColor="#FF9C01"
+                    resizeMode="contain"
+                  />
+                  <Image
+                    source={icons.menu}
+                    className="w-8 h-8"
+                    tintColor="#FF9C01"
+                    resizeMode="contain"
+                  />
+                </View>
+              </View>
             </View>
           </View>
         </Modal>
