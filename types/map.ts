@@ -20,6 +20,7 @@ export interface LocationMarkerProps {
   longitude: number;
   title?: string;
   description?: string;
+  onPress?: () => void;
 }
 
 export interface MapProps {

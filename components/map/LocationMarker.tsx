@@ -7,12 +7,14 @@ const LocationMarker: React.FC<LocationMarkerProps> = ({
   longitude,
   title,
   description,
+  onPress,
 }) => {
   return (
     <Marker
       coordinate={{ latitude, longitude }}
       title={title}
       description={description}
+      onPress={onPress}
     />
   );
 };

@@ -11,7 +11,7 @@ export default class LoginService {
   static async loginAuth(userData: ILoginUser): Promise<IGetUserResponse> {
     try {
       const response = await fetch(
-        `https://9108-91-235-160-53.ngrok-free.app/auth`,
+        `https://c57b-91-235-160-25.ngrok-free.app/auth`,
         {
           method: "POST",
           headers: {
