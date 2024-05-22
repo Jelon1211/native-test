@@ -1,16 +1,10 @@
-import {
-  View,
-  Modal,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-} from "react-native";
+import { View, Modal, Text, TouchableOpacity, StatusBar } from "react-native";
 import React, { useState } from "react";
 import MapView from "react-native-maps";
 import { ICurrentLocation, IRegion, MapProps } from "@/types/map";
 import LocationMarker from "./LocationMarker";
 import mockMarkers from "@/constants/mockMarkers";
+import CancelButton from "../CancelButton";
 
 const Map: React.FC<MapProps> = ({ currentLocation }) => {
   const [region, setRegion] = useState<IRegion | undefined>({
@@ -21,9 +15,11 @@ const Map: React.FC<MapProps> = ({ currentLocation }) => {
   });
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState<any>(null);
+  const [selectedMarker, setSelectedMarker] = useState<ICurrentLocation | null>(
+    null
+  );
 
-  const handleMarkerPress = (marker: any) => {
+  const handleMarkerPress = (marker: ICurrentLocation) => {
     setSelectedMarker(marker);
     setModalVisible(true);
   };
@@ -71,16 +67,34 @@ const Map: React.FC<MapProps> = ({ currentLocation }) => {
           onRequestClose={() => setModalVisible(false)}
         >
           <View className="flex-1 justify-center items-center bg-black/25">
-            <View style={styles.modalContainer}>
-              <Text style={styles.modalTitle}>{selectedMarker.title}</Text>
-              <Text style={styles.modalDescription}>
-                {selectedMarker.description}
+            <View className="w-10/12 p-12 rounded-lg items-center bg-white">
+              <Text>Znajdź żółtego psa lub diabła rogatego</Text>
+              <Text className="mt-4 text-center">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Aliquid, sint? Quis, quasi laborum repudiandae corporis iste
+                tenetur, obcaecati dicta explicabo eos minima, necessitatibus
+                harum. Quas et repudiandae temporibus veniam culpa assumenda
+                perferendis eligendi blanditiis autem enim error, nisi quasi
+                ipsa porro praesentium! Adipisci distinctio tempora dolores, sed
+                aspernatur quas, enim debitis veniam et nam placeat quasi quidem
+                rerum tempore. Aliquam, alias itaque, voluptatum beatae a
+                accusamus rerum nisi expedita molestias nam obcaecati
+                perferendis. Nam nostrum explicabo provident similique
+                distinctio inventore nihil molestias error ipsa! Praesentium
+                consequatur sit tempora nisi sed molestias mollitia repudiandae
+                nemo modi, itaque magni aspernatur repellendus blanditiis atque
+                ab? Quidem amet iusto, rem magnam excepturi voluptates corrupti
+                hic dolore illum incidunt beatae a quas aliquid quisquam! Qui.
               </Text>
               <TouchableOpacity
-                style={styles.closeButton}
+                className="mt-4 p-2 rounded"
                 onPress={() => setModalVisible(false)}
               >
-                <Text style={styles.closeButtonText}>Close</Text>
+                <CancelButton
+                  title="Cancel"
+                  containerStyles="absolute right-1/3"
+                  handlePress={() => setModalVisible(false)}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -89,40 +103,5 @@ const Map: React.FC<MapProps> = ({ currentLocation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContainer: {
-    width: 300,
-    padding: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  modalDescription: {
-    marginTop: 10,
-    fontSize: 14,
-    textAlign: "center",
-  },
-  closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: "#2196F3",
-    borderRadius: 5,
-  },
-  closeButtonText: {
-    color: "white",
-    fontSize: 16,
-  },
-});
 
 export default Map;
