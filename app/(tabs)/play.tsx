@@ -7,8 +7,8 @@ import Map from "@/components/map/Map";
 import Loading from "@/components/Loading";
 
 const Play = () => {
-  const { permissionDenied, errorMessage, currentLocation } = useLocation();
-  const [retry, setRetry] = useState<Boolean>(false);
+  const { permissionDenied, errorMessage, currentLocation, getLocation } =
+    useLocation();
 
   // To prevent actions when NOT on 'play' page
   // useFocusEffect(
@@ -20,16 +20,20 @@ const Play = () => {
   //   }, [startLocationUpdates, stopLocationUpdates])
   // );
 
-  useEffect(() => {
-    // refresh if gps disabled
-    const interval = setInterval(() => {
-      if (!currentLocation) {
-        setRetry((prev) => !prev);
-      }
-    }, 2000);
+  useFocusEffect(
+    useCallback(() => {
+      // refresh if gps disabled
+      const interval = setInterval(() => {
+        if (!currentLocation) {
+          getLocation();
+        }
+      }, 5000);
 
-    return () => clearInterval(interval);
-  }, [currentLocation]);
+      return () => clearInterval(interval);
+    }, [currentLocation])
+  );
+
+  console.log(currentLocation);
 
   return (
     <View className="flex-1 items-center justify-center bg-white">

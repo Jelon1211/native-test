@@ -78,6 +78,7 @@ const useLocation = () => {
     errorMessage,
     startLocationUpdates,
     stopLocationUpdates,
+    getLocation,
   };
 };
 
