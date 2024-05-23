@@ -39,12 +39,13 @@ const Home = () => {
         <Text className="text-3xl font-pblack">Home</Text>
         <CustomButton title={"Test get"} handlePress={fetchItems} />
         {items &&
-          items.map(({ title, description, status, geo }) => (
-            <View className="border-solid border-2">
+          items.map(({ title, description, status, geo, uuid }) => (
+            <View key={uuid} className="border-solid border-2">
               <Text>{title}</Text>
               <Text>{description}</Text>
               <Text>{status}</Text>
               <Text>{geo}</Text>
+              <Text>{uuid}</Text>
             </View>
           ))}
       </ScrollView>
