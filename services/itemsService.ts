@@ -14,12 +14,21 @@ class ItemsService {
   private async request<T>(
     method: "GET" | "POST" | "PUT" | "DELETE",
     url: string,
+    params?: any,
     data?: any
   ): Promise<T> {
+    const fullUrl = `${this.axiosInstance.defaults.baseURL}${url}`;
+    console.log(
+      `Request URL: ${fullUrl}`,
+      params ? `Params: ${JSON.stringify(params)}` : "",
+      data ? `Data: ${JSON.stringify(data)}` : ""
+    );
+
     try {
       const response: AxiosResponse<T> = await this.axiosInstance.request<T>({
         method,
         url,
+        params,
         data,
       });
       return response.data;
@@ -30,7 +39,7 @@ class ItemsService {
 
   public async getItems(
     skip: number = 0,
-    limit: number = 10,
+    limit: number = 100,
     order: number = 1,
     sort: string = "id"
   ): Promise<any> {
@@ -43,14 +52,16 @@ class ItemsService {
   }
 
   public async createItem(itemData: IItem): Promise<any> {
-    return this.request<any>("POST", "/items", itemData);
+    return this.request<any>("POST", "/items", {}, itemData);
   }
 
-  public async updateItem(itemId: string, itemData: any): Promise<any> {
-    return this.request<any>("PUT", `/items/${itemId}`, itemData);
+  public async updateItem(itemId: string, itemData: IItem): Promise<any> {
+    return this.request<any>("PUT", `/items/${itemId}`, {}, itemData);
   }
 
   public async deleteItem(itemId: string): Promise<any> {
     return this.request<any>("DELETE", `/items/${itemId}`);
   }
 }
+
+export default ItemsService;
