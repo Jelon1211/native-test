@@ -11,7 +11,7 @@ export default class LoginService {
   static async loginAuth(userData: ILoginUser): Promise<IGetUserResponse> {
     try {
       const response = await fetch(
-        `https://c57b-91-235-160-25.ngrok-free.app/auth`,
+        `https://8dac-91-235-160-56.ngrok-free.app/auth`,
         {
           method: "POST",
           headers: {
@@ -39,13 +39,16 @@ export default class LoginService {
 
   static async createUser(userData: ICreateUser): Promise<ICreateUserResponse> {
     try {
-      const response = await fetch(`${API_URL}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `https://8dac-91-235-160-56.ngrok-free.app/users`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       const data: ICreateUser = await response.json();
       return { data, status: response.status };
