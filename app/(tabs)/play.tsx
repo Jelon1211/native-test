@@ -1,14 +1,17 @@
 import { View, Text } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import useLocation from "@/hooks/useLocation"; // Upewnij się, że ścieżka jest poprawna
 import { useFocusEffect } from "@react-navigation/native";
 import PermissionMessage from "@/components/PermissionMessage";
 import Map from "@/components/map/Map";
 import Loading from "@/components/Loading";
+import useItems from "@/hooks/useItems";
 
 const Play = () => {
   const { permissionDenied, errorMessage, currentLocation, getLocation } =
     useLocation();
+
+  const { items, loading, error } = useItems();
 
   // To prevent actions when NOT on 'play' page
   // useFocusEffect(
@@ -27,7 +30,7 @@ const Play = () => {
         if (!currentLocation) {
           getLocation();
         }
-      }, 5000);
+      }, 1000);
 
       return () => clearInterval(interval);
     }, [currentLocation])
@@ -37,17 +40,19 @@ const Play = () => {
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
-      {currentLocation ? (
-        <Map currentLocation={currentLocation} />
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <Text>Error: {error.message}</Text>
+      ) : currentLocation ? (
+        <Map currentLocation={currentLocation} items={items} />
       ) : (
         <Loading />
       )}
-      <Text>
-        <PermissionMessage
-          permissionDenied={permissionDenied}
-          errorMessage={errorMessage}
-        />
-      </Text>
+      <PermissionMessage
+        permissionDenied={permissionDenied}
+        errorMessage={errorMessage}
+      />
     </View>
   );
 };

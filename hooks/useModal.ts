@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { ICurrentLocation } from "@/types/map";
+import { IItem } from "@/types/itemservice";
 
 const useModal = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [selectedMarker, setSelectedMarker] = useState<ICurrentLocation | null>(
-    null
-  );
+  const [selectedMarker, setSelectedMarker] = useState<IItem | null>(null);
 
-  const handleMarkerPress = (marker: ICurrentLocation) => {
+  const handleMarkerPress = (marker: IItem) => {
     setSelectedMarker(marker);
     setModalVisible(true);
   };

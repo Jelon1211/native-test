@@ -4,6 +4,7 @@ export interface IApiConfig {
 }
 
 export interface IItem {
+  uuid: string;
   title: string;
   description: string;
   status: "open" | "closed";
@@ -14,4 +15,5 @@ export interface IItem {
   lat: number;
   md_text: string;
   created_by: string;
+  geo: string;
 }

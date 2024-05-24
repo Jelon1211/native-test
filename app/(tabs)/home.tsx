@@ -4,9 +4,12 @@ import { API_URL } from "@env";
 import ItemsService from "../../services/itemsService";
 import CustomButton from "@/components/CustomButton";
 
-const itemsService = new ItemsService({
-  baseURL: API_URL,
-});
+const itemsService = new ItemsService(
+  {
+    baseURL: API_URL,
+  },
+  "bearer token"
+);
 
 const Home = () => {
   const [items, setItems] = useState([]);

@@ -1,3 +1,5 @@
+import { IItem } from "./itemservice";
+
 export interface IRegion {
   latitude: number;
   longitude: number;
@@ -25,4 +27,5 @@ export interface LocationMarkerProps {
 
 export interface MapProps {
   currentLocation: ICurrentLocation;
+  items: IItem[];
 }

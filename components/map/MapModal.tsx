@@ -7,14 +7,15 @@ import {
   Image,
   Linking,
 } from "react-native";
-import { ICurrentLocation } from "@/types/map";
+import { IItem } from "@/types/itemservice";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { ICurrentLocation } from "@/types/map";
 
 interface MapModalProps {
   visible: boolean;
   onClose: () => void;
-  marker: ICurrentLocation | null;
+  marker: IItem | null;
   currentLocation: ICurrentLocation;
 }
 

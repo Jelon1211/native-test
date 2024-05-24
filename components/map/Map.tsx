@@ -1,39 +1,15 @@
 import { View, StatusBar } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MapView from "react-native-maps";
 import { MapProps } from "@/types/map";
 import LocationMarker from "./LocationMarker";
 import MapModal from "./MapModal";
-import mockMarkers from "@/constants/mockMarkers";
 import useModal from "@/hooks/useModal";
-import { API_URL } from "@env";
-import ItemsService from "@/services/itemsService";
+import { IItem } from "@/types/itemservice";
 
-const itemsService = new ItemsService({
-  baseURL: API_URL,
-});
-
-const Map: React.FC<MapProps> = ({ currentLocation }) => {
+const Map: React.FC<MapProps> = ({ currentLocation, items }) => {
   const { modalVisible, selectedMarker, handleMarkerPress, closeModal } =
     useModal();
-
-  const [items, setItems] = useState<any>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  const fetchItems = async () => {
-    try {
-      const data = await itemsService.getItems(0, 100, 1, "id");
-      setItems(data.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <View className="absolute w-full h-full">
@@ -58,25 +34,26 @@ const Map: React.FC<MapProps> = ({ currentLocation }) => {
         showsMyLocationButton={true}
         mapPadding={{ top: 40, right: 0, bottom: 0, left: 0 }}
       >
-        {items.map((item: any) => {
-          const { uuid, title, geo } = item;
-          const [longitude, latitude] = geo
-            .replace("POINT (", "")
-            .replace(")", "")
-            .split(" ");
+        {items &&
+          items.map((item: IItem) => {
+            const { uuid, title, geo } = item;
+            const [latitude, longitude] = geo
+              .replace("POINT (", "")
+              .replace(")", "")
+              .split(" ");
 
-          return (
-            <LocationMarker
-              key={uuid}
-              latitude={parseFloat(longitude)}
-              longitude={parseFloat(latitude)}
-              title={title}
-              onPress={() => {
-                handleMarkerPress(item);
-              }}
-            />
-          );
-        })}
+            return (
+              <LocationMarker
+                key={uuid}
+                latitude={parseFloat(latitude)}
+                longitude={parseFloat(longitude)}
+                title={title}
+                onPress={() => {
+                  handleMarkerPress(item);
+                }}
+              />
+            );
+          })}
       </MapView>
 
       <MapModal
