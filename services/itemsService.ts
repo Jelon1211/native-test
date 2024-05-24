@@ -3,11 +3,22 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 class ItemsService {
   private axiosInstance: AxiosInstance;
+  private authorizationToken: string;
 
-  constructor(config: IApiConfig) {
+  constructor(config: IApiConfig, authorizationToken: string) {
     this.axiosInstance = axios.create({
       baseURL: config.baseURL,
       timeout: config.timeout || 10000,
+    });
+
+    this.authorizationToken = authorizationToken;
+
+    this.axiosInstance.interceptors.request.use((config) => {
+      // config.headers["Authorization"] = `Bearer ${this.authorizationToken}`;
+      config.headers[
+        "Authorization"
+      ] = `Bearer 1Gu93Rh^3bU5Umn3%9Du@5HWy23f@1!gR%ys`;
+      return config;
     });
   }
 
