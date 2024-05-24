@@ -29,3 +29,10 @@ export interface MapProps {
   currentLocation: ICurrentLocation;
   items: IItem[];
 }
+
+export interface MapModalProps {
+  visible: boolean;
+  onClose: () => void;
+  marker: IItem | null;
+  currentLocation: ICurrentLocation;
+}

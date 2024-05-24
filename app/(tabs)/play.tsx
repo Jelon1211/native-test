@@ -10,8 +10,7 @@ import useItems from "@/hooks/useItems";
 const Play = () => {
   const { permissionDenied, errorMessage, currentLocation, getLocation } =
     useLocation();
-
-  const { items, loading, error } = useItems();
+  const { items, loading, error } = useItems(true);
 
   // To prevent actions when NOT on 'play' page
   // useFocusEffect(

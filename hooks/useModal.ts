@@ -5,8 +5,8 @@ const useModal = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [selectedMarker, setSelectedMarker] = useState<IItem | null>(null);
 
-  const handleMarkerPress = (marker: IItem) => {
-    setSelectedMarker(marker);
+  const handleMarkerPress = (item: IItem) => {
+    setSelectedMarker(item);
     setModalVisible(true);
   };
 

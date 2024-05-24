@@ -6,6 +6,7 @@ import LocationMarker from "./LocationMarker";
 import MapModal from "./MapModal";
 import useModal from "@/hooks/useModal";
 import { IItem } from "@/types/itemservice";
+import { parseGeoCoordinates } from "@/lib/geoUtils.ts";
 
 const Map: React.FC<MapProps> = ({ currentLocation, items }) => {
   const { modalVisible, selectedMarker, handleMarkerPress, closeModal } =
@@ -37,16 +38,13 @@ const Map: React.FC<MapProps> = ({ currentLocation, items }) => {
         {items &&
           items.map((item: IItem) => {
             const { uuid, title, geo } = item;
-            const [latitude, longitude] = geo
-              .replace("POINT (", "")
-              .replace(")", "")
-              .split(" ");
+            const [latitude, longitude] = parseGeoCoordinates(geo);
 
             return (
               <LocationMarker
                 key={uuid}
-                latitude={parseFloat(latitude)}
-                longitude={parseFloat(longitude)}
+                latitude={latitude}
+                longitude={longitude}
                 title={title}
                 onPress={() => {
                   handleMarkerPress(item);

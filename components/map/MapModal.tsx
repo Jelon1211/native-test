@@ -7,17 +7,10 @@ import {
   Image,
   Linking,
 } from "react-native";
-import { IItem } from "@/types/itemservice";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
-import { ICurrentLocation } from "@/types/map";
-
-interface MapModalProps {
-  visible: boolean;
-  onClose: () => void;
-  marker: IItem | null;
-  currentLocation: ICurrentLocation;
-}
+import { MapModalProps } from "@/types/map";
+import { parseGeoCoordinates } from "@/lib/geoUtils.ts";
 
 const MapModal: React.FC<MapModalProps> = ({
   visible,
@@ -25,14 +18,15 @@ const MapModal: React.FC<MapModalProps> = ({
   marker,
   currentLocation,
 }) => {
+  if (!marker) return null;
+
   const openGoogleMaps = () => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${currentLocation.latitude},${currentLocation.longitude}`;
+    const [latitude, longitude] = parseGeoCoordinates(marker.geo);
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
     Linking.openURL(url).catch((err) =>
       console.error("An error occurred", err)
     );
   };
-
-  if (!marker) return null;
 
   return (
     <Modal
@@ -42,7 +36,7 @@ const MapModal: React.FC<MapModalProps> = ({
       onRequestClose={onClose}
     >
       <View className="flex-1 justify-center items-center bg-black/25">
-        <View className="w-10/12 px-3 pt-3 rounded-lg bg-white border-solid border-2">
+        <View className="w-10/12 px-3 pt-3 rounded-lg bg-white border-solid border-2 relative">
           <TouchableOpacity
             className="absolute -right-8 -top-8 z-50 w-16 h-16"
             onPress={onClose}
@@ -53,9 +47,7 @@ const MapModal: React.FC<MapModalProps> = ({
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text className="text-2xl font-bold text-center">
-            Znajdź żółtego psa lub diabła rogatego
-          </Text>
+          <Text className="text-2xl font-bold text-center">{marker.title}</Text>
           <Image
             source={images.thumbnail}
             className="w-full max-w-72 max-h-52"
@@ -64,11 +56,7 @@ const MapModal: React.FC<MapModalProps> = ({
           <View className="w-100">
             <Text className="text-base">
               {/* 40 words max */}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-              laudantium possimus cum pariatur, cumque fuga enim nam esse ipsum
-              doloribus eligendi ducimus quisquam ab inventore dolores similique
-              ratione. Laboriosam facere eligendi dolorum hic voluptate unde
-              eveniet fugit odit tempore recusandae!
+              {marker.description}
             </Text>
             <View className="flex flex-row gap-7 pt-3 items-center justify-end">
               <Image

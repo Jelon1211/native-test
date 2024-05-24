@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "@env";
 import ItemsService from "../../services/itemsService";
 import CustomButton from "@/components/CustomButton";
+import useItems from "@/hooks/useItems";
 
 const itemsService = new ItemsService(
   {
@@ -12,23 +13,7 @@ const itemsService = new ItemsService(
 );
 
 const Home = () => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  const fetchItems = async () => {
-    try {
-      const data = await itemsService.getItems(0, 100, 1, "id");
-      setItems(data.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { items, loading, error } = useItems(true);
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
@@ -40,7 +25,6 @@ const Home = () => {
         }}
       >
         <Text className="text-3xl font-pblack">Home</Text>
-        <CustomButton title={"Test get"} handlePress={fetchItems} />
         {items &&
           items.map(({ title, description, status, geo, uuid }) => (
             <View key={uuid} className="border-solid border-2">
