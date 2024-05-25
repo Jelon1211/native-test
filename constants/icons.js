@@ -15,6 +15,11 @@ import checked from "../assets/icons/checked.png";
 import cancel from "../assets/icons/cancel.png";
 import seeMore from "../assets/icons/see-more.png";
 import map from "../assets/icons/map.png";
+import movie from "../assets/icons/categories/movie.png";
+import music from "../assets/icons/categories/music.png";
+import news from "../assets/icons/categories/news.png";
+import sport from "../assets/icons/categories/sport.png";
+import technology from "../assets/icons/categories/technology.png";
 
 export default {
   play,
@@ -34,4 +39,9 @@ export default {
   cancel,
   seeMore,
   map,
+  movie,
+  music,
+  news,
+  technology,
+  sport,
 };

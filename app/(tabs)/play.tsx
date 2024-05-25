@@ -29,7 +29,7 @@ const Play = () => {
         if (!currentLocation) {
           getLocation();
         }
-      }, 1000);
+      }, 2000);
 
       return () => clearInterval(interval);
     }, [currentLocation])

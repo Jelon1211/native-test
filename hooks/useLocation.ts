@@ -32,7 +32,7 @@ const useLocation = () => {
       setErrorMessage(null);
       return location.coords;
     } catch (error) {
-      setErrorMessage("Error during setting gps");
+      setErrorMessage("Error during setting gps. Retrying....");
       console.error(error);
       return null;
     }
