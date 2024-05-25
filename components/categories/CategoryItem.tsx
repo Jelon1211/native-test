@@ -1,14 +1,14 @@
 import React from "react";
 import * as Animatable from "react-native-animatable";
-import { Image, TouchableOpacity, Text, View } from "react-native";
+import { Image, TouchableOpacity, Text, View, ViewStyle } from "react-native";
 import { CategoryItemProps } from "@/types/categories";
 
 const zoomIn: any = {
   0: {
-    scale: 0.9,
+    scaleX: 0.9,
   },
   1: {
-    scale: 1,
+    scaleX: 1,
   },
 };
 

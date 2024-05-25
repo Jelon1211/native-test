@@ -3,8 +3,9 @@ import { View, Text, Image } from "react-native";
 
 import { images } from "../constants";
 import CustomButton from "./CustomButton";
+import { IEmptyState } from "@/types/messages";
 
-const EmptyState = ({ title, subtitle }: any) => {
+const EmptyState = ({ title, subtitle }: IEmptyState) => {
   return (
     <View className="flex justify-center items-center px-4">
       <Image

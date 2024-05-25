@@ -3,10 +3,7 @@ import { View, Text, Image } from "react-native";
 import SearchInput from "@/components/SearchInput";
 import Categories from "@/components/categories/Categories";
 import Heading from "../Heading";
-
-interface ListHeaderProps {
-  categories: any;
-}
+import { ListHeaderProps } from "@/types/list";
 
 const ListHeader: React.FC<ListHeaderProps> = ({ categories }) => {
   return (

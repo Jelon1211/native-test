@@ -12,6 +12,11 @@ const tabsConfig = [
     icon: icons.play,
   },
   {
+    name: "create",
+    title: "create",
+    icon: icons.plus,
+  },
+  {
     name: "profile",
     title: "Profile",
     icon: icons.profile,

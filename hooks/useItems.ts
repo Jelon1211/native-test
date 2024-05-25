@@ -25,7 +25,7 @@ const useItems = (initialFetch = false) => {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const data = await itemsService.getItems(0, 100, 1, "id");
+      const data = await itemsService.getItems(0, 10, 1, "id");
       setItems(data.data);
     } catch (error) {
       setError(error as Error);

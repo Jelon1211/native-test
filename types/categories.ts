@@ -20,7 +20,6 @@ export interface ViewToken {
   isViewable: boolean;
   item: Category;
   index: number | null;
-  section?: any;
 }
 
 export interface ViewableItems {

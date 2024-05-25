@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { GPS_REFRESH_RATE } from "@env";
 import * as Location from "expo-location";
+import { LocationCoords } from "@/types/location";
 
 const useLocation = () => {
-  const [currentLocation, setCurrentLocation] = useState<any>();
-  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState<LocationCoords>();
+  const [permissionDenied, setPermissionDenied] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
