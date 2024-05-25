@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import CategoryItem from "./CategoryItem";
 import { CategoriesProps, ViewToken } from "@/types/categories";
 
@@ -23,19 +23,24 @@ const Categories: React.FC<CategoriesProps> = ({ categories }) => {
   }
 
   return (
-    <FlatList
-      data={categories}
-      horizontal
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <CategoryItem activeItem={activeItem || ""} item={item} />
-      )}
-      onViewableItemsChanged={viewableItemsChanged}
-      viewabilityConfig={{
-        itemVisiblePercentThreshold: 70,
-      }}
-      contentInset={{ left: 170, right: 170 }}
-    />
+    <View className="w-full flex-1 pt-8 pb-8">
+      <Text className="text-lg font-pregular text-gray-100 mb-3">
+        Categories
+      </Text>
+      <FlatList
+        data={categories}
+        horizontal
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <CategoryItem activeItem={activeItem || ""} item={item} />
+        )}
+        onViewableItemsChanged={viewableItemsChanged}
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 70,
+        }}
+        contentInset={{ left: 170, right: 170 }}
+      />
+    </View>
   );
 };
 
