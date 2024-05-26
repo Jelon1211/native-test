@@ -58,7 +58,7 @@ const Profile = () => {
 
             <View className="mt-5 flex flex-row">
               <InfoBox
-                title={666}
+                title={"666"}
                 subtitle="Games"
                 titleStyles="text-xl"
                 containerStyles="mr-10"

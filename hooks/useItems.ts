@@ -38,7 +38,7 @@ const useItems = (initialFetch = false) => {
     setLoading(true);
     try {
       const data = await itemsService.getItemById(itemUuid);
-      setItem(data);
+      setItem(data.data);
     } catch (error) {
       setError(error as Error);
     } finally {

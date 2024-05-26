@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   View,
@@ -23,8 +23,11 @@ const Create = () => {
   });
 
   const openPicker = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: ["image/png", "image/jpg", "image/jpeg"],
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
 
     if (!result.canceled) {

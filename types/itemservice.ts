@@ -4,6 +4,7 @@ export interface IApiConfig {
 }
 
 export interface IItem {
+  created_at: string;
   uuid: string;
   title: string;
   description: string;

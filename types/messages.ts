@@ -9,7 +9,7 @@ export interface IEmptyState {
 
 export interface IInfoBox {
   title: string;
-  subtitle: string;
-  containerStyles: string;
-  titleStyles: string;
+  subtitle?: string;
+  containerStyles?: string;
+  titleStyles?: string;
 }

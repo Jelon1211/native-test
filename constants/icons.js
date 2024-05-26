@@ -20,6 +20,9 @@ import music from "../assets/icons/categories/music.png";
 import news from "../assets/icons/categories/news.png";
 import sport from "../assets/icons/categories/sport.png";
 import technology from "../assets/icons/categories/technology.png";
+import time from "../assets/icons/time.png";
+import status from "../assets/icons/status.png";
+import inactive from "../assets/icons/inactive.png";
 
 export default {
   play,
@@ -44,4 +47,7 @@ export default {
   news,
   technology,
   sport,
+  time,
+  status,
+  inactive,
 };

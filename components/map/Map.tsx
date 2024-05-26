@@ -6,7 +6,7 @@ import LocationMarker from "./LocationMarker";
 import MapModal from "./MapModal";
 import useModal from "@/hooks/useModal";
 import { IItem } from "@/types/itemservice";
-import { parseGeoCoordinates } from "@/lib/geoUtils.ts";
+import { parseGeoCoordinates } from "@/lib/geoUtils";
 
 const Map: React.FC<MapProps> = ({ currentLocation, items }) => {
   const { modalVisible, selectedMarker, handleMarkerPress, closeModal } =
