@@ -30,7 +30,7 @@ export interface MapProps {
   items: IItem[];
 }
 
-export interface MapModalProps {
+export interface IMapModalProps {
   visible: boolean;
   onClose: () => void;
   marker: IItem | null;
