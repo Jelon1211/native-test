@@ -23,6 +23,8 @@ import technology from "../assets/icons/categories/technology.png";
 import time from "../assets/icons/time.png";
 import status from "../assets/icons/status.png";
 import inactive from "../assets/icons/inactive.png";
+import active from "../assets/icons/active.png";
+import type from "../assets/icons/type.png";
 
 export default {
   play,
@@ -50,4 +52,6 @@ export default {
   time,
   status,
   inactive,
+  active,
+  type,
 };

@@ -10,7 +10,7 @@ import {
 import images from "@/constants/images";
 import icons from "@/constants/icons";
 import { MapModalProps } from "@/types/map";
-import { parseGeoCoordinates } from "@/lib/geoUtils.ts";
+import { openGoogleMaps } from "@/lib/geoUtils";
 
 const MapModal: React.FC<MapModalProps> = ({
   visible,
@@ -19,14 +19,6 @@ const MapModal: React.FC<MapModalProps> = ({
   currentLocation,
 }) => {
   if (!marker) return null;
-
-  const openGoogleMaps = () => {
-    const [latitude, longitude] = parseGeoCoordinates(marker.geo);
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-    Linking.openURL(url).catch((err) =>
-      console.error("An error occurred", err)
-    );
-  };
 
   return (
     <Modal
@@ -65,7 +57,7 @@ const MapModal: React.FC<MapModalProps> = ({
                 tintColor="#FF9C01"
                 resizeMode="contain"
               />
-              <TouchableOpacity onPress={openGoogleMaps}>
+              <TouchableOpacity onPress={() => openGoogleMaps(marker.geo)}>
                 <Image
                   source={icons.map}
                   className="w-8 h-8"
