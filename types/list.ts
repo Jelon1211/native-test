@@ -22,6 +22,7 @@ export interface IListTitle {
   uuid: string;
   title: string;
   created_by: string;
+  is_deleted?: boolean;
 }
 
 export interface IListPicture {

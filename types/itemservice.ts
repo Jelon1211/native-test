@@ -17,6 +17,7 @@ export interface IItem {
   md_text: string;
   created_by: string;
   geo: string;
+  is_deleted?: boolean;
 }
 export interface ICreateItem {
   created_by: string;

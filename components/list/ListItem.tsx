@@ -18,6 +18,7 @@ const ListItem = ({ item }: { item: IItem }) => {
             uuid={item.uuid}
             title={item.title}
             created_by={item.created_by}
+            is_deleted={item.is_deleted}
           />
         </View>
 

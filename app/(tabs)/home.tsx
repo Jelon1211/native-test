@@ -7,9 +7,11 @@ import ListHeader from "@/components/list/ListHeader";
 import EmptyState from "@/components/EmptyState";
 import categories from "@/constants/categories";
 import ListItem from "@/components/list/ListItem";
+import Loading from "@/components/Loading";
 
 const Home: React.FC = () => {
-  const { items, loading, error, fetchItems, fetchMoreItems } = useItems(true);
+  const { items, loading, error, fetchMoreItems, refreshItems } =
+    useItems(true);
   const [refreshing, setRefreshing] = useState(false);
   const [localCategories, setLocalCategories] = useState(categories);
 
@@ -19,8 +21,13 @@ const Home: React.FC = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await fetchItems(1);
+    await refreshItems();
     setRefreshing(false);
+  };
+
+  const renderFooter = () => {
+    if (!loading) return null;
+    return <Loading />;
   };
 
   return (
@@ -31,6 +38,7 @@ const Home: React.FC = () => {
         renderItem={({ item }) => <ListItem item={item} />}
         ListHeaderComponent={() => <ListHeader categories={localCategories} />}
         ListEmptyComponent={EmptyState}
+        ListFooterComponent={renderFooter}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

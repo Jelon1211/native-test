@@ -15,20 +15,22 @@ const useItems = (initialFetch = false) => {
   const [item, setItem] = useState<IItem | null>(null);
   const [loading, setLoading] = useState<boolean>(initialFetch);
   const [error, setError] = useState<Error | null>(null);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
   useEffect(() => {
     if (initialFetch) {
-      fetchItems(1);
+      fetchItems(0);
     }
   }, [initialFetch]);
 
-  const fetchItems = async (pageNumber: number = 1) => {
+  const fetchItems = async (pageNumber: number = 0) => {
     setLoading(true);
     try {
-      const data = await itemsService.getItems(pageNumber, 100, 1, "id");
-      if (pageNumber === 1) {
+      const limit = 10;
+      const skip = pageNumber * limit;
+      const data = await itemsService.getItems(skip, limit, -1, "created_at");
+      if (pageNumber === 0) {
         setItems(data.data);
       } else {
         setItems((prevItems) => [...prevItems, ...data.data]);
@@ -39,6 +41,11 @@ const useItems = (initialFetch = false) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const refreshItems = async () => {
+    setPage(0);
+    await fetchItems(0);
   };
 
   const fetchMoreItems = () => {
@@ -81,7 +88,7 @@ const useItems = (initialFetch = false) => {
     try {
       const data = await itemsService.updateItem(itemUuid, itemData);
       setItems((prevItems) =>
-        prevItems.map((item) => (item.uuid === itemUuid ? data : item))
+        prevItems.map((item) => (item.uuid === itemUuid ? data.data : item))
       );
     } catch (error) {
       setError(error as Error);
@@ -110,6 +117,7 @@ const useItems = (initialFetch = false) => {
     loading,
     error,
     fetchItems,
+    refreshItems,
     fetchMoreItems,
     fetchItemById,
     createItem,
