@@ -97,15 +97,17 @@ const useItems = (initialFetch = false) => {
     }
   };
 
-  const deleteItem = async (itemUuid: string) => {
+  const deleteItem = async (itemUuid: string): Promise<boolean> => {
     setLoading(true);
     try {
       await itemsService.deleteItem(itemUuid);
       setItems((prevItems) =>
         prevItems.filter((item) => item.uuid !== itemUuid)
       );
+      return true;
     } catch (error) {
       setError(error as Error);
+      return false;
     } finally {
       setLoading(false);
     }

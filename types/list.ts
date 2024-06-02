@@ -45,4 +45,5 @@ export interface IMenuButtonProps {
 export interface PopoverContentProps {
   uuid: string;
   geo: string;
+  setPopoverVisible: (boolean: boolean) => void;
 }

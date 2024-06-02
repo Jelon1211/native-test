@@ -50,7 +50,11 @@ const MenuButton: React.FC<IMenuButtonProps> = ({
         placement={PopoverPlacement.TOP}
         offset={30}
       >
-        <PopoverContent uuid={uuid} geo={geo} />
+        <PopoverContent
+          uuid={uuid}
+          geo={geo}
+          setPopoverVisible={setPopoverVisible}
+        />
       </Popover>
     </View>
   );
