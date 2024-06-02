@@ -37,8 +37,11 @@ export interface IListModal {
 export interface IMenuButtonProps {
   onPress?: (event: GestureResponderEvent) => void;
   icon: ImageSourcePropType;
+  uuid: string;
+  geo: string;
 }
 
 export interface PopoverContentProps {
-  handleClosePopover: () => void;
+  uuid: string;
+  geo: string;
 }

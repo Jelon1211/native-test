@@ -18,3 +18,13 @@ export interface IItem {
   created_by: string;
   geo: string;
 }
+export interface ICreateItem {
+  created_by: string;
+  title: string;
+  description: string;
+  item_type: string;
+  owner: string;
+  lon: number | null;
+  lat: number | null;
+  uuid?: string;
+}

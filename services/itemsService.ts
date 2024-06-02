@@ -1,4 +1,4 @@
-import { IApiConfig, IItem } from "@/types/itemservice";
+import { IApiConfig, ICreateItem, IItem } from "@/types/itemservice";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 class ItemsService {
@@ -62,7 +62,7 @@ class ItemsService {
     return this.request<any>("GET", `/items/${itemId}`);
   }
 
-  public async createItem(itemData: IItem): Promise<any> {
+  public async createItem(itemData: ICreateItem): Promise<any> {
     return this.request<any>("POST", "/items", {}, itemData);
   }
 

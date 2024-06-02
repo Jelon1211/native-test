@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React, { useCallback } from "react";
-import useLocation from "@/hooks/useLocation"; // Upewnij się, że ścieżka jest poprawna
+import useLocation from "@/hooks/useLocation";
 import { useFocusEffect } from "@react-navigation/native";
 import PermissionMessage from "@/components/PermissionMessage";
 import Map from "@/components/map/Map";

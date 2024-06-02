@@ -3,7 +3,7 @@ import React from "react";
 import icons from "@/constants/icons";
 import { IItem } from "@/types/itemservice";
 import { images } from "@/constants";
-import MenuModal from "./MenuButton";
+import MenuButton from "./MenuButton";
 import ListProfileIcon from "./ListProfileIcon";
 import ListTitle from "./ListTitle";
 import ListPicture from "./ListPicture";
@@ -21,7 +21,7 @@ const ListItem = ({ item }: { item: IItem }) => {
           />
         </View>
 
-        <MenuModal icon={icons.menu} />
+        <MenuButton icon={icons.menu} uuid={item.uuid} geo={item.geo} />
       </View>
       <ListPicture uuid={item.uuid} image={images.thumbnail} />
     </View>

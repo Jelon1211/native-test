@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, RefreshControl } from "react-native";
 
@@ -7,11 +6,10 @@ import useItems from "@/hooks/useItems";
 import ListHeader from "@/components/list/ListHeader";
 import EmptyState from "@/components/EmptyState";
 import categories from "@/constants/categories";
-import images from "@/constants/images";
 import ListItem from "@/components/list/ListItem";
 
 const Home: React.FC = () => {
-  const { items, loading, error, fetchItems } = useItems(true);
+  const { items, loading, error, fetchItems, fetchMoreItems } = useItems(true);
   const [refreshing, setRefreshing] = useState(false);
   const [localCategories, setLocalCategories] = useState(categories);
 
@@ -21,7 +19,7 @@ const Home: React.FC = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await fetchItems();
+    await fetchItems(1);
     setRefreshing(false);
   };
 
@@ -36,6 +34,8 @@ const Home: React.FC = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        onEndReached={fetchMoreItems}
+        onEndReachedThreshold={0.5}
       />
     </SafeAreaView>
   );

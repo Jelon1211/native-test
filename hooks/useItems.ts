@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ItemsService from "@/services/itemsService";
 import { API_URL } from "@env";
-import { IItem } from "@/types/itemservice";
+import { ICreateItem, IItem } from "@/types/itemservice";
 
 const itemsService = new ItemsService(
   {
@@ -15,22 +15,39 @@ const useItems = (initialFetch = false) => {
   const [item, setItem] = useState<IItem | null>(null);
   const [loading, setLoading] = useState<boolean>(initialFetch);
   const [error, setError] = useState<Error | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   useEffect(() => {
     if (initialFetch) {
-      fetchItems();
+      fetchItems(1);
     }
   }, [initialFetch]);
 
-  const fetchItems = async () => {
+  const fetchItems = async (pageNumber: number = 1) => {
     setLoading(true);
     try {
-      const data = await itemsService.getItems(0, 10, 1, "id");
-      setItems(data.data);
+      const data = await itemsService.getItems(pageNumber, 100, 1, "id");
+      if (pageNumber === 1) {
+        setItems(data.data);
+      } else {
+        setItems((prevItems) => [...prevItems, ...data.data]);
+      }
+      setHasMore(data.data.length > 0);
     } catch (error) {
       setError(error as Error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMoreItems = () => {
+    if (hasMore && !loading) {
+      setPage((prevPage) => {
+        const nextPage = prevPage + 1;
+        fetchItems(nextPage);
+        return nextPage;
+      });
     }
   };
 
@@ -46,11 +63,12 @@ const useItems = (initialFetch = false) => {
     }
   };
 
-  const createItem = async (itemData: IItem) => {
+  const createItem = async (itemData: ICreateItem): Promise<IItem | void> => {
     setLoading(true);
     try {
       const data = await itemsService.createItem(itemData);
-      setItems((prevItems) => [...prevItems, data]);
+      setItem(data.data);
+      return data.data;
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -92,6 +110,7 @@ const useItems = (initialFetch = false) => {
     loading,
     error,
     fetchItems,
+    fetchMoreItems,
     fetchItemById,
     createItem,
     updateItem,

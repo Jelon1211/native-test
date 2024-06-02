@@ -10,11 +10,11 @@ export interface IRegion {
 export interface ICurrentLocation {
   latitude: number;
   longitude: number;
-  accuracy?: number;
-  altitude?: 0;
-  altitudeAccuracy?: 0;
-  heading?: 0;
-  speed?: 0;
+  accuracy?: number | null;
+  altitude?: number | null;
+  altitudeAccuracy?: number | null;
+  heading?: number | null;
+  speed?: number | null;
 }
 
 export interface LocationMarkerProps {
@@ -23,6 +23,17 @@ export interface LocationMarkerProps {
   title?: string;
   description?: string;
   onPress?: () => void;
+}
+
+export interface ILocationPicker {
+  location: {
+    latitude: number | null;
+    longitude: number | null;
+  };
+  setLocation: (location: {
+    latitude: number | null;
+    longitude: number | null;
+  }) => void;
 }
 
 export interface MapProps {

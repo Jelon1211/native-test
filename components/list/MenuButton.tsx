@@ -9,7 +9,12 @@ import Popover, { PopoverPlacement } from "react-native-popover-view";
 import PopoverContent from "./PopoverContent";
 import { IMenuButtonProps } from "@/types/list";
 
-const MenuModal: React.FC<IMenuButtonProps> = ({ onPress, icon }) => {
+const MenuButton: React.FC<IMenuButtonProps> = ({
+  onPress,
+  icon,
+  uuid,
+  geo,
+}) => {
   const [popoverVisible, setPopoverVisible] = useState<boolean>(false);
   const menuButtonRef = useRef(null);
 
@@ -45,10 +50,10 @@ const MenuModal: React.FC<IMenuButtonProps> = ({ onPress, icon }) => {
         placement={PopoverPlacement.TOP}
         offset={30}
       >
-        <PopoverContent handleClosePopover={handleClosePopover} />
+        <PopoverContent uuid={uuid} geo={geo} />
       </Popover>
     </View>
   );
 };
 
-export default MenuModal;
+export default MenuButton;
