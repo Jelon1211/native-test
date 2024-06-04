@@ -47,6 +47,7 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
   const handlePress = async (action: any) => {
     switch (action) {
       case "Details":
+        setPopoverVisible(false);
         router.push({
           pathname: "item-details",
           params: {
@@ -55,7 +56,13 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
         });
         break;
       case "Edit":
-        console.log("edit");
+        setPopoverVisible(false);
+        router.push({
+          pathname: "item-edit",
+          params: {
+            itemUuid: uuid,
+          },
+        });
         break;
       case "Delete":
         setIsDeleting(true);
