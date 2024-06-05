@@ -50,7 +50,13 @@ const Create = () => {
   };
 
   const submit = async () => {
-    if (!form.title || !form.image || !form.description) {
+    if (
+      !form.title ||
+      !form.image ||
+      !form.description ||
+      !form.location.latitude ||
+      !form.location.longitude
+    ) {
       Alert.alert("Error", "All fields are required!");
       return;
     }
