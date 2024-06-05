@@ -1,4 +1,9 @@
-import { IApiConfig, ICreateItem, IItem } from "@/types/itemservice";
+import {
+  IApiConfig,
+  ICreateItem,
+  IItem,
+  IUpdateItem,
+} from "@/types/itemservice";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 class ItemsService {
@@ -23,7 +28,7 @@ class ItemsService {
   }
 
   private async request<T>(
-    method: "GET" | "POST" | "PUT" | "DELETE",
+    method: "GET" | "POST" | "PATCH" | "DELETE",
     url: string,
     params?: any,
     data?: any
@@ -66,8 +71,8 @@ class ItemsService {
     return this.request<any>("POST", "/items", {}, itemData);
   }
 
-  public async updateItem(itemId: string, itemData: IItem): Promise<any> {
-    return this.request<any>("PUT", `/items/${itemId}`, {}, itemData);
+  public async updateItem(itemId: string, itemData: IUpdateItem): Promise<any> {
+    return this.request<any>("PATCH", `/items/${itemId}`, {}, itemData);
   }
 
   public async deleteItem(itemId: string): Promise<any> {

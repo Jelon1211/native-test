@@ -29,3 +29,8 @@ export interface ICreateItem {
   lat: number | null;
   uuid?: string;
 }
+
+export interface IUpdateItem {
+  title: string;
+  description: string;
+}

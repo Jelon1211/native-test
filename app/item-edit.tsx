@@ -18,6 +18,7 @@ import useItems from "@/hooks/useItems";
 import icons from "@/constants/icons";
 import images from "@/constants/images";
 import { parseGeoCoordinates } from "@/lib/geoUtils";
+import { IItem } from "@/types/itemservice";
 
 const ItemEdit = () => {
   const { itemUuid } = useLocalSearchParams();
@@ -80,18 +81,10 @@ const ItemEdit = () => {
       return;
     }
 
-    const itemData = {
-      title: form.title,
-      description: form.description,
-      item_type: form.itemType,
-      owner: generateUUID(),
-      created_by: generateUUID(),
-      lat: form.location.latitude,
-      lon: form.location.longitude,
-    };
+    const { title, description } = form;
 
     try {
-      const data = await createItem(itemData);
+      const data = await updateItem(itemUuid as string, { title, description });
       if (data) {
         router.push({
           pathname: "item-details",
@@ -99,19 +92,9 @@ const ItemEdit = () => {
             itemUuid: data.uuid,
           },
         });
-        setForm({
-          title: "",
-          image: null,
-          description: "",
-          itemType: "book",
-          location: {
-            latitude: null,
-            longitude: null,
-          },
-        });
       }
     } catch (er) {
-      Alert.alert("Error", "There was an error updating the item.");
+      Alert.alert(`Error ${er}`, "There was an error updating the item.");
     }
   };
 

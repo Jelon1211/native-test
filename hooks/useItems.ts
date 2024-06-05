@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ItemsService from "@/services/itemsService";
 import { API_URL } from "@env";
-import { ICreateItem, IItem } from "@/types/itemservice";
+import { ICreateItem, IItem, IUpdateItem } from "@/types/itemservice";
 
 const itemsService = new ItemsService(
   {
@@ -83,13 +83,14 @@ const useItems = (initialFetch = false) => {
     }
   };
 
-  const updateItem = async (itemUuid: string, itemData: IItem) => {
+  const updateItem = async (itemUuid: string, itemData: IUpdateItem) => {
     setLoading(true);
     try {
       const data = await itemsService.updateItem(itemUuid, itemData);
       setItems((prevItems) =>
         prevItems.map((item) => (item.uuid === itemUuid ? data.data : item))
       );
+      return data.data;
     } catch (error) {
       setError(error as Error);
     } finally {
