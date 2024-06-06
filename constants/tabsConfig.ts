@@ -21,6 +21,11 @@ const tabsConfig = [
     title: "Profile",
     icon: icons.profile,
   },
+  {
+    name: "test",
+    title: "test",
+    icon: icons.profile,
+  },
 ];
 
 export default tabsConfig;
